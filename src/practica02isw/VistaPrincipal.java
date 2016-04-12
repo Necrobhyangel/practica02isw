@@ -23,23 +23,71 @@ public class VistaPrincipal extends javax.swing.JFrame {
     public VistaPrincipal() throws IOException {
         ctrlVista = new ControladorVista();
         initComponents();
+        
+        
+        if (ctrlVista.getCtrlPelea().isPeleaEnCurso()==false) {
+            btnJuego.setEnabled(true);
+        }
     }
 
     public void actualizarLog(){
     System.out.println(ctrlVista.getLog());    
     consolaJuego.setText(ctrlVista.getLog());
     }
+    public void iniciarContador(){
+        Thread hilo = new Thread();
+    while(ctrlVista.getCtrlPelea().getTiempo() != 0){
+        try {
+           ctrlVista.getCtrlPelea().setTiempo(ctrlVista.getCtrlPelea().getTiempo()-1);
+            lbTiempo.setText(String.valueOf(this.ctrlVista.getCtrlPelea().getTiempo()));
+          //  System.out.println(tiempo);
+            hilo.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+    
+    public void verificarEstado(){
+     if (ctrlVista.getCtrlPelea().isPeleaEnCurso()==false) {
+            btnJuego.setEnabled(true);
+       }
+    }
     
     public void actualizarHP(){
         barraHPPlayer.setValue((int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
-        barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
+        barraHPPlayer.setString((int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida()+"/"+barraHPPlayer.getMaximum());
         barraHPPlayer.updateUI();
         
         barraHPCPU.setValue((int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
-        barraHPCPU.setString(barraHPCPU.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
+        barraHPCPU.setString((int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida()+"/"+barraHPCPU.getMaximum());
         barraHPCPU.updateUI();
     }
     
+  public void limpiarPantalla(){
+consolaJuego.setText("");
+lbPlHeroe.setText("<player>");
+lbCPUHeroe.setText("<cpu>");
+imgCPU.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/noimageCPU.png"))); // NOI18N
+imgCPU.setText("???");
+imgCPU.setEnabled(false);
+imgJ1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/noimageP1.png"))); // NOI18N
+imgJ1.setText("???");
+imgJ1.setEnabled(false);
+lbTiempo.setText("0");
+btnCambiarJugador.setEnabled(false);
+barraHPPlayer.setMaximum(0);
+barraHPPlayer.setMinimum(0);
+barraHPCPU.setMaximum(0);
+barraHPCPU.setMinimum(0);
+barraHPPlayer.setString("0/0");
+barraHPPlayer.setStringPainted(true);
+barraHPCPU.setString("0/0");
+barraHPCPU.setStringPainted(true);
+btnGolpe.setEnabled(false);
+btnPatada.setEnabled(false);
+btnAtaqueEsp.setEnabled(false);
+}    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -299,7 +347,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJuegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJuegoActionPerformed
-
+limpiarPantalla();
         try {
            ctrlVista.obtenerJugador();
            ctrlVista.obtenerSeleccion();
@@ -353,6 +401,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private void btnPeleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeleaActionPerformed
 
 ctrlVista.getCtrlPelea().iniciarPelea();
+lbTiempo.setText(String.valueOf(this.ctrlVista.getCtrlPelea().getTiempo()));
+//iniciarContador();
 btnCambiarJugador.setEnabled(true);
 btnGolpe.setEnabled(true);
 btnPatada.setEnabled(true);
@@ -366,21 +416,39 @@ btnPelea.setEnabled(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGolpeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGolpeActionPerformed
-ctrlVista.getCtrlPelea().registrarAtaque(0);
+        try {
+            ctrlVista.getCtrlPelea().registrarAtaque(0);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 consolaJuego.setText(ctrlVista.getLog());
-actualizarHP();// TODO add your handling code here:
+actualizarHP();
+verificarEstado();
+
+// TODO add your handling code here:
+
     }//GEN-LAST:event_btnGolpeActionPerformed
 
     private void btnPatadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatadaActionPerformed
-ctrlVista.getCtrlPelea().registrarAtaque(1);
+        try {
+            ctrlVista.getCtrlPelea().registrarAtaque(1);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 consolaJuego.setText(ctrlVista.getLog());
-actualizarHP();// TODO add your handling code here:
+actualizarHP();// TODO add your handling code here
+verificarEstado();
     }//GEN-LAST:event_btnPatadaActionPerformed
 
     private void btnAtaqueEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueEspActionPerformed
-ctrlVista.getCtrlPelea().registrarAtaque(2);
+        try {
+            ctrlVista.getCtrlPelea().registrarAtaque(2);
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 consolaJuego.setText(ctrlVista.getLog());
 actualizarHP();// TODO add your handling code here:
+verificarEstado();
     }//GEN-LAST:event_btnAtaqueEspActionPerformed
 
     private void btnCambiarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarJugadorActionPerformed
@@ -389,7 +457,6 @@ lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
 lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
 ctrlVista.setLog("Jugador cambiado a "+ctrlVista.getCtrlPelea().getJugador().getNombre()+"\n");
 actualizarLog();
-
 // TODO add your handling code here:
     }//GEN-LAST:event_btnCambiarJugadorActionPerformed
 
@@ -425,6 +492,7 @@ actualizarLog();
             public void run() {
                 try {
                     new VistaPrincipal().setVisible(true);
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }

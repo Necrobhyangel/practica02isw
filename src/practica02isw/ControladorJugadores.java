@@ -93,15 +93,17 @@ public class ControladorJugadores {
         }
    }
  
- public void crearJugador(String nombre){
-       Jugador jugadorNuevo;
+ public void crearJugador(String nombre) throws IOException{
+     cargarArchivo();  
+     Jugador jugadorNuevo;
        jugadorNuevo = new Jugador(jugadores.size()+1,nombre,0,0);
        jugadores.add(jugadorNuevo);
        guardarArchivo();
  }
  
- public Jugador buscarJugador(int j){
- return jugadores.get(j);
+ public Jugador buscarJugador(int j) throws IOException{
+     cargarArchivo();
+     return jugadores.get(j);
  }
  
  

@@ -6,7 +6,9 @@
 package practica02isw;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,6 +25,7 @@ public class ControladorPelea {
    private String nombreHeroePlayer,nombreHeroeCPU;
    private boolean seleccionCompleta;
    private boolean peleaEnCurso = false;
+   boolean timeover = false;
 
     public ControladorPelea(ControladorVista ctrlVista) throws IOException {
         this.ctrlPeleadores = new ControladorPeleadores();
@@ -66,11 +69,22 @@ public class ControladorPelea {
         this.jugador = jugador;
     }
    
-    public int getTIEMPO() {
+    public int getTiempo() {
         return tiempo;
     }
-    
 
+    public void setTiempo(int tiempo) {
+        this.tiempo = tiempo;
+    }
+
+    public boolean isTimeover() {
+        return timeover;
+    }
+
+    public void setTimeover(boolean timeover) {
+        this.timeover = timeover;
+    }
+    
     
     public SuperHeroe getSuperHeroePlayer() {
         return superHeroePlayer;
@@ -126,45 +140,48 @@ public class ControladorPelea {
     setSeleccionCompleta(true);
     }
     
-           
-public void iniciarConteo(){
-while(this.tiempo != 0){
-        try {
-            this.tiempo--;
-          //  System.out.println(tiempo);
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-}
-
 public void iniciarPelea(){
  setPeleaEnCurso(true);
  //iniciarConteo();
- 
-    while(isPeleaEnCurso()==false){
-        if (this.tiempo < 0) {
-            this.setPeleaEnCurso(false);
-        }else if(this.superHeroePlayer.getVida() <= 0){
-            this.setPeleaEnCurso(false);
-        }else if(this.superHeroeCPU.getVida() <= 0){
-            this.setPeleaEnCurso(false);
-        }
-    }
 }
 
-public void verificarEstado(){
-
+public void reiniciar() throws IOException{
+ctrlPeleadores.eliminarPeleadores();
+setTiempo(120);
 }
 
-public void registrarAtaque(int i){
-    if (isPeleaEnCurso()==true) {
+public void registrarAtaque(int i) throws IOException{
+    
+    if (isPeleaEnCurso()) {
     Random rnd = new Random();
     ctrlVista.setLog(superHeroePlayer.atacar(i, superHeroeCPU));
     ctrlVista.setLog(superHeroeCPU.atacar(rnd.nextInt(2), superHeroePlayer));
-    System.out.println(isPeleaEnCurso());
     }
+    if (isTimeover()) {
+        setPeleaEnCurso(false);
+        if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
+            JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
+            reiniciar();
+        }else{
+           JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
+           reiniciar();
+        }
+    } if (superHeroePlayer.getVida()<= 0) {
+        setPeleaEnCurso(false);
+        JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
+        getJugador().setPerdidas(getJugador().getPerdidas()+1);
+        superHeroePlayer.setVida(0);
+        reiniciar();
+    }  if (superHeroeCPU.getVida()<= 0) {
+        setPeleaEnCurso(false);
+        JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
+        getJugador().setGanadas(getJugador().getGanadas()+1);
+        superHeroeCPU.setVida(0);
+        reiniciar();
+    } 
+    
     }
+
+
 
 }

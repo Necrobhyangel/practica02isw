@@ -66,7 +66,7 @@ public class SuperHeroe implements Heroe {
     
     @Override
     public String golpe(SuperHeroe enemigo) {
-    String mensaje = this.getNombre()+" ha golpeado a "+enemigo.getNombre()+" quitandole "+ ataque/4+ "puntos de vida\n";
+    String mensaje = this.getNombre()+" ha golpeado a "+enemigo.getNombre()+" quitandole "+ ataque/4+ " puntos de vida\n";
     enemigo.setVida(enemigo.getVida()-ataque/4);
     System.out.println(mensaje);
     return mensaje;
@@ -74,7 +74,7 @@ public class SuperHeroe implements Heroe {
 
     @Override
     public String patada(SuperHeroe enemigo) {
-    String mensaje = this.getNombre()+" ha pateado a "+enemigo.getNombre()+" quitandole "+ ataque/4+ "puntos de vida\n";
+    String mensaje = this.getNombre()+" ha pateado a "+enemigo.getNombre()+" quitandole "+ ataque/4+ " puntos de vida\n";
     enemigo.setVida(enemigo.getVida()-ataque/2);
     System.out.println(mensaje);
     return mensaje;
@@ -82,7 +82,7 @@ public class SuperHeroe implements Heroe {
 
     @Override
     public String tecnicaEsp(SuperHeroe enemigo) {
-    String mensaje = this.getNombre()+" ha hecho su ataque especial a "+enemigo.getNombre()+" quitandole "+ ataque/4+ "puntos de vida\n";
+    String mensaje = this.getNombre()+" ha hecho su ataque especial a "+enemigo.getNombre()+" quitandole "+ ataque/4+ " puntos de vida\n";
     enemigo.setVida(enemigo.getVida()-ataque);
         System.out.println(mensaje);
     return mensaje;

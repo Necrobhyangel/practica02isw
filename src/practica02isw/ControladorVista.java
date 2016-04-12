@@ -7,6 +7,7 @@ package practica02isw;
 
 import java.awt.Component;
 import java.io.IOException;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -134,7 +135,8 @@ public class ControladorVista {
     setLog("El jugador selecciono a: "+ctrlPelea.getSuperHeroePlayer().getNombre()+"\n");
     setLog("El CPU selecciono a: "+ ctrlPelea.getSuperHeroeCPU().getNombre()+"\n");
     }
-
+    
+    
     void cambiarJugador() {
     String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
              

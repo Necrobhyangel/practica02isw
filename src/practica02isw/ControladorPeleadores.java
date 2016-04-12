@@ -110,9 +110,7 @@ public class ControladorPeleadores {
    }
    
    public void eliminarPeleadores(){
-       for (int i = 0; i < superHeroe.size(); i++) {
-           superHeroe.remove(i);
-       }
+      superHeroe.removeAll(superHeroe);
    }
    
 }
