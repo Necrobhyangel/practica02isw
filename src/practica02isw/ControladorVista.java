@@ -137,7 +137,7 @@ public class ControladorVista {
     }
     
     
-    void cambiarJugador() {
+    void cambiarJugador() throws IOException {
     String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
              
                 if (!id.isEmpty()) {
