@@ -13,9 +13,10 @@ import java.util.Random;
  * @author Erick
  */
 public class ControladorPelea {
-   private final ControladorPeleadores ctrlPeleadores = new ControladorPeleadores();
+   ControladorPeleadores ctrlPeleadores;
    private final ControladorVista ctrlVista;
-   private ControladorJugadores ctrlJugadores = new ControladorJugadores();
+   private ControladorJugadores ctrlJugadores;
+   private final ControladorRankings ctrlRankings;
    private int tiempo = 120;
    private Jugador jugador;
    private SuperHeroe superHeroePlayer,superHeroeCPU;
@@ -23,7 +24,24 @@ public class ControladorPelea {
    private boolean seleccionCompleta;
    private boolean peleaEnCurso = false;
 
-    public ControladorJugadores getCtrlJugadores() {
+    public ControladorPelea(ControladorVista ctrlVista) throws IOException {
+        this.ctrlPeleadores = new ControladorPeleadores();
+        this.ctrlJugadores = new ControladorJugadores();
+        this.ctrlRankings = new ControladorRankings(ctrlJugadores);
+        this.seleccionCompleta = false;
+        this.ctrlVista = ctrlVista;
+    }
+
+    public ControladorPeleadores getCtrlPeleadores() {
+        return ctrlPeleadores;
+    }
+
+    public void setCtrlPeleadores(ControladorPeleadores ctrlPeleadores) {
+        this.ctrlPeleadores = ctrlPeleadores;
+    }
+   
+    
+   public ControladorJugadores getCtrlJugadores() {
         return ctrlJugadores;
     }
 
@@ -52,11 +70,8 @@ public class ControladorPelea {
         return tiempo;
     }
     
-    public ControladorPelea(ControladorVista ctrlVista) {
-        this.seleccionCompleta = false;
-        this.ctrlVista = ctrlVista;
-    }
 
+    
     public SuperHeroe getSuperHeroePlayer() {
         return superHeroePlayer;
     }
@@ -146,11 +161,10 @@ public void verificarEstado(){
 public void registrarAtaque(int i){
     if (isPeleaEnCurso()==true) {
     Random rnd = new Random();
-    superHeroePlayer.atacar(i, superHeroeCPU);
-    superHeroeCPU.atacar(rnd.nextInt(2), superHeroePlayer);
-        System.out.println(isPeleaEnCurso());
+    ctrlVista.setLog(superHeroePlayer.atacar(i, superHeroeCPU));
+    ctrlVista.setLog(superHeroeCPU.atacar(rnd.nextInt(2), superHeroePlayer));
+    System.out.println(isPeleaEnCurso());
     }
     }
-
 
 }

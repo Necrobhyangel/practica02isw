@@ -12,18 +12,23 @@ import java.util.ArrayList;
  *
  * @author Erick
  */
-public class ControladorVistaRankings {
-ControladorJugadores ctrlJugadores = new ControladorJugadores();
+public class ControladorRankings {
+ControladorJugadores ctrlJugadores;
 
-    public ControladorVistaRankings(ControladorJugadores ctrlJugadores) {
+    public ControladorJugadores getCtrlJugadores() {
+        return ctrlJugadores;
+    }
+
+    public void setCtrlJugadores(ControladorJugadores ctrlJugadores) {
         this.ctrlJugadores = ctrlJugadores;
     }
 
- public ControladorVistaRankings() throws IOException {
-ctrlJugadores.cargarArchivo();
- }
 
-
+    public ControladorRankings(ControladorJugadores ctrlJugadores) throws IOException {
+        this.ctrlJugadores = ctrlJugadores;
+        ctrlJugadores.cargarArchivo();
+    }
+    
  public Object[][] obtenerRankings() throws IOException{
  
  ArrayList<Jugador> ranks = ctrlJugadores.getJugadores();

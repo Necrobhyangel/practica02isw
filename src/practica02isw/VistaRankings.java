@@ -18,19 +18,22 @@ public class VistaRankings extends javax.swing.JFrame {
 
     /**
      * Creates new form Rankings
+     * @param j
      * @throws java.io.IOException
      */
-    public VistaRankings() throws IOException {
-        ControladorVistaRankings ctrlVstRankings = new ControladorVistaRankings();
-        
+    public VistaRankings(ControladorJugadores j) throws IOException {
+     ControladorRankings ctrlRankings = new ControladorRankings(j);
         
         initComponents();
         
         tablaRank.setModel(
-        new javax.swing.table.DefaultTableModel(ctrlVstRankings.obtenerRankings(),new String [] {
+        new javax.swing.table.DefaultTableModel(ctrlRankings.obtenerRankings(),new String [] {
             "Nombre", "Victorias", "Derrotas"
             }
         ));
+    }
+
+    private VistaRankings() {
     }
 
     /**
@@ -130,11 +133,7 @@ public class VistaRankings extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new VistaRankings().setVisible(true);
-                } catch (IOException ex) {
-                    Logger.getLogger(VistaRankings.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new VistaRankings().setVisible(true);
             }
         });
     }

@@ -5,29 +5,23 @@
  */
 package practica02isw;
 
-import java.awt.Label;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 
 /**
  *
  * @author Erick
  */
 public class VistaPrincipal extends javax.swing.JFrame {
-    ControladorPelea ctrlPelea;
     ControladorVista ctrlVista;
-    VistaRankings vstRankings;
- 
+//    VistaRankings vstRankings = new VistaRankings(ctrlVista.getCtrlPelea().getCtrlJugadores());
 
     /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() throws IOException {
-        ctrlVista = new ControladorVista(ctrlPelea);
-        ctrlPelea = new ControladorPelea(ctrlVista);
-        vstRankings = new VistaRankings();
+        ctrlVista = new ControladorVista();
         initComponents();
     }
 
@@ -37,12 +31,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }
     
     public void actualizarHP(){
-        barraHPPlayer.setValue((int)ctrlPelea.getSuperHeroePlayer().getVida());
-        barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlPelea.getSuperHeroePlayer().getVida());
+        barraHPPlayer.setValue((int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
+        barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
         barraHPPlayer.updateUI();
         
-        barraHPCPU.setValue((int)ctrlPelea.getSuperHeroeCPU().getVida());
-        barraHPCPU.setString(barraHPCPU.getMaximum()+"/"+(int)ctrlPelea.getSuperHeroeCPU().getVida());
+        barraHPCPU.setValue((int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
+        barraHPCPU.setString(barraHPCPU.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
         barraHPCPU.updateUI();
     }
     
@@ -151,6 +145,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         btnCambiarJugador.setText("CAMBIAR JUGADOR");
         btnCambiarJugador.setEnabled(false);
+        btnCambiarJugador.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCambiarJugadorActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("RANKINGS");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -203,9 +202,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                         .addGap(40, 40, 40))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addComponent(jLabel2)
-                                        .addGap(96, 96, 96)))
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addGap(159, 159, 159)))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -276,12 +274,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel4))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(175, 175, 175)
+                                        .addGap(113, 113, 113)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(32, 32, 32)
                                         .addComponent(imgCPU))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(110, 110, 110)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(39, 39, 39)
+                                        .addGap(179, 179, 179)
                                         .addComponent(lbCPUHeroe)
                                         .addGap(14, 14, 14)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,7 +303,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
         try {
            ctrlVista.obtenerJugador();
            ctrlVista.obtenerSeleccion();
-           ctrlPelea.obtenerHeroes();
+           ctrlVista.getCtrlPelea().obtenerHeroes();
            actualizarLog();
            
            lbNombreJugador.setVisible(true);
@@ -319,24 +317,32 @@ public class VistaPrincipal extends javax.swing.JFrame {
            imgCPU.setEnabled(true);        
            btnPelea.setEnabled(true);
            
-           imgJ1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlPelea.getSuperHeroePlayer().getRutaImg())));
-           imgCPU.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlPelea.getSuperHeroeCPU().getRutaImg())));
+           imgJ1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroePlayer().getRutaImg())));
+           imgCPU.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroeCPU().getRutaImg())));
+          
            
-           barraHPPlayer.setMaximum((int)ctrlPelea.getSuperHeroePlayer().getVida());
-           barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlPelea.getSuperHeroePlayer().getVida());
-           barraHPPlayer.setMinimum(0);
+           lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
+           lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
+           
+           lbPlHeroe.setText(ctrlVista.getCtrlPelea().getNombreHeroePlayer());
+           lbCPUHeroe.setText(ctrlVista.getCtrlPelea().getNombreHeroeCPU());
+           
+           
+            barraHPPlayer.setMinimum(0);
+           barraHPPlayer.setMaximum((int) ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
+           barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
            barraHPPlayer.setStringPainted(true);
            
-           barraHPCPU.setMaximum((int)ctrlPelea.getSuperHeroeCPU().getVida());
-           barraHPCPU.setString(barraHPCPU.getMaximum()+"/"+(int)ctrlPelea.getSuperHeroeCPU().getVida());
            barraHPCPU.setMinimum(0);
+           barraHPCPU.setMaximum((int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
+           barraHPCPU.setString(barraHPCPU.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroeCPU().getVida());
            barraHPCPU.setStringPainted(true);
            
-           lbNombreJugador.setText(ctrlVista.getNombreJugador());
-           lbID.setText(String.valueOf(ctrlPelea.getJugador().getId()));
-           lbPlHeroe.setText(ctrlPelea.getNombreHeroePlayer());
-           lbCPUHeroe.setText(ctrlPelea.getNombreHeroeCPU());
-          // consolaJuego.setText(ctrlVista.getLog());
+           
+           actualizarHP();
+           
+           ctrlVista.mensajeSeleccion();
+           consolaJuego.setText(ctrlVista.getLog());
            btnJuego.setEnabled(false);
             
         } catch (IOException ex) {
@@ -345,7 +351,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJuegoActionPerformed
 
     private void btnPeleaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeleaActionPerformed
-ctrlPelea.iniciarPelea();
+
+ctrlVista.getCtrlPelea().iniciarPelea();
+btnCambiarJugador.setEnabled(true);
 btnGolpe.setEnabled(true);
 btnPatada.setEnabled(true);
 btnAtaqueEsp.setEnabled(true);
@@ -354,23 +362,36 @@ btnPelea.setEnabled(false);
     }//GEN-LAST:event_btnPeleaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-vstRankings.setVisible(true);
+//vstRankings.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGolpeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGolpeActionPerformed
-ctrlPelea.registrarAtaque(0);
+ctrlVista.getCtrlPelea().registrarAtaque(0);
+consolaJuego.setText(ctrlVista.getLog());
 actualizarHP();// TODO add your handling code here:
     }//GEN-LAST:event_btnGolpeActionPerformed
 
     private void btnPatadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatadaActionPerformed
-ctrlPelea.registrarAtaque(1);
+ctrlVista.getCtrlPelea().registrarAtaque(1);
+consolaJuego.setText(ctrlVista.getLog());
 actualizarHP();// TODO add your handling code here:
     }//GEN-LAST:event_btnPatadaActionPerformed
 
     private void btnAtaqueEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtaqueEspActionPerformed
-ctrlPelea.registrarAtaque(2);
+ctrlVista.getCtrlPelea().registrarAtaque(2);
+consolaJuego.setText(ctrlVista.getLog());
 actualizarHP();// TODO add your handling code here:
     }//GEN-LAST:event_btnAtaqueEspActionPerformed
+
+    private void btnCambiarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarJugadorActionPerformed
+ctrlVista.cambiarJugador();
+lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
+lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
+ctrlVista.setLog("Jugador cambiado a "+ctrlVista.getCtrlPelea().getJugador().getNombre()+"\n");
+actualizarLog();
+
+// TODO add your handling code here:
+    }//GEN-LAST:event_btnCambiarJugadorActionPerformed
 
     /**
      * @param args the command line arguments

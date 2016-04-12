@@ -15,16 +15,17 @@ import javax.swing.JOptionPane;
  * @author Erick
  */
 public class ControladorVista {
-  ControladorPelea ctrlPelea = new ControladorPelea(this);
-  ControladorPeleadores ctrlPeleadores = new ControladorPeleadores();
+  ControladorPelea ctrlPelea;
   String nombreJugador,nombreHeroePlayer,nombreHeroeCPU,log;
   int seleccion;
 
+    public ControladorVista() throws IOException {
+        this.ctrlPelea = new ControladorPelea(this);
+        this.log = "";
+    }
+  
     public int getSeleccion() {
         return seleccion;
-    }
-
-    public ControladorVista(){
     }
 
     public void setSeleccion(int seleccion) {
@@ -47,11 +48,6 @@ public class ControladorVista {
         this.nombreHeroeCPU = nombreHeroeCPU;
     }
 
-    public ControladorVista(ControladorPelea ctrlPelea) throws IOException {
-        this.ctrlPelea = ctrlPelea;
-    }
-
-
     public ControladorPelea getCtrlPelea() {
         return ctrlPelea;
     }
@@ -72,14 +68,6 @@ public class ControladorVista {
             setNombreJugador(JOptionPane.showInputDialog("Por favor ingresa tu nombre"));
     }
     
-    public String obtenerNombreHeroeP1(){
-    return ctrlPelea.getNombreHeroePlayer();
-    }
-    
-    public String obtenerNombreHeroeCPU(){
-    return ctrlPelea.getNombreHeroeCPU();
-    }
-
     public String getLog(){
         return log;
     }
@@ -89,7 +77,7 @@ public class ControladorVista {
     }
      
     public void obtenerSeleccion() throws IOException{
-    Object[] opciones = ctrlPeleadores.mostrarNombres();
+    Object[] opciones = ctrlPelea.getCtrlPeleadores().mostrarNombres();
     Component frame = null;
      int n = JOptionPane.showOptionDialog(frame,
     "Selecciona al personaje que peleara contra el CPU",
@@ -100,11 +88,11 @@ public class ControladorVista {
     opciones,
     opciones[0]);
     setSeleccion(n);
-    mensajeSeleccion();
     }
 
     public void obtenerJugador() throws IOException{
-  while(true){
+ boolean select = true;
+        while(select){
         Object[] opciones = {"Crear jugador Nuevo","Ingresar ID de jugador existente"};
     Component frame = null;
     int n = JOptionPane.showOptionDialog(frame,
@@ -118,36 +106,45 @@ public class ControladorVista {
     
         switch (n) {
             case 0:
-                String nombre = JOptionPane.showInputDialog(this,"Ingresa el Nombre del jugador");
+                String nombre = JOptionPane.showInputDialog(null,"Ingresa el Nombre del jugador");
                 ctrlPelea.getCtrlJugadores().crearJugador(nombre);
+                ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().getJugadores().get(ctrlPelea.getCtrlJugadores().getJugadores().size()-1));
+                select = false;
                 break; 
             
             case 1:
-             String id = JOptionPane.showInputDialog(this,"Ingresa el ID del jugador");
-             Jugador encontrado = null;
-             System.out.println(ctrlPelea.getCtrlJugadores().getJugadores().size());
-             for (int i = 0; i < ctrlPelea.getCtrlJugadores().getJugadores().size(); i++) {
-                    if (id.equals(ctrlPelea.getCtrlJugadores().getJugadores().get(i).getId())) {
-                        encontrado = ctrlPelea.getCtrlJugadores().getJugadores().get(i);
-                    }
+             String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
+             
+                if (!id.isEmpty()) {
+                    ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)-1));
+                    select = false;
+                    break;
+                } else if(ctrlPelea.getJugador().equals(null)){
+                JOptionPane.showMessageDialog(frame,"No se encontro al jugador");
                 }
-                
-                if (encontrado!=null) {
-                    ctrlPelea.setJugador(encontrado);
-                }else{
-                JOptionPane.showMessageDialog(null,"Jugador no encontrado");
-                }
-                break;
+             
+             
             default:
-                throw new AssertionError();
+               
         }
   }
     }
     
     public void mensajeSeleccion(){
-    setLog("El jugador selecciono a: "+obtenerNombreHeroeP1()+"\n");
-    setLog("El CPU selecciono a: "+ obtenerNombreHeroeCPU()+"\n");
+    setLog("El jugador selecciono a: "+ctrlPelea.getSuperHeroePlayer().getNombre()+"\n");
+    setLog("El CPU selecciono a: "+ ctrlPelea.getSuperHeroeCPU().getNombre()+"\n");
     }
 
+    void cambiarJugador() {
+    String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
+             
+                if (!id.isEmpty()) {
+                    ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)-1));
+                } else if(ctrlPelea.getJugador().equals(null)){
+                JOptionPane.showMessageDialog(null,"No se encontro al jugador");
+                }
+             
+    }
 
+   
 }

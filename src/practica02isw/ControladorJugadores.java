@@ -22,7 +22,6 @@ import java.util.logging.Logger;
  */
 public class ControladorJugadores {
     private ArrayList<Jugador> jugadores = new ArrayList<>();
-    private Jugador jugador;
     private File file = new File("src\\jugadores.csv");
 
     public ControladorJugadores() {
@@ -34,14 +33,6 @@ public class ControladorJugadores {
 
     public void setJugadores(ArrayList<Jugador> jugadores) {
         this.jugadores = jugadores;
-    }
-
-    public Jugador getJugador() {
-        return jugador;
-    }
-
-    public void setJugador(Jugador jugador) {
-        this.jugador = jugador;
     }
 
     public File getFile() {
@@ -69,8 +60,7 @@ public class ControladorJugadores {
            String[] token;
            while ((line = br.readLine()) != null) {
                token=line.split(",");
-               jugador = new Jugador(Integer.parseInt(token[0]),token[1],Integer.parseInt(token[2]),Integer.parseInt(token[3]));
-               jugadores.add(jugador);
+               jugadores.add(new Jugador(Integer.parseInt(token[0]),token[1],Integer.parseInt(token[2]),Integer.parseInt(token[3])));
                System.out.println(jugadores.get(jugadores.size()-1).archivar());
            }
            System.err.println("IMPORTADOS: "+jugadores.size()+" JUGADORES");
@@ -108,6 +98,10 @@ public class ControladorJugadores {
        jugadorNuevo = new Jugador(jugadores.size()+1,nombre,0,0);
        jugadores.add(jugadorNuevo);
        guardarArchivo();
+ }
+ 
+ public Jugador buscarJugador(int j){
+ return jugadores.get(j);
  }
  
  

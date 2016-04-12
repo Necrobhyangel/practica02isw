@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class ControladorPeleadores {
     private ArrayList<SuperHeroe> superHeroe = new ArrayList<>();
-    private SuperHeroe heroe;
+    // SuperHeroe heroe;
     private File file = new File("src\\peleadores.csv");
 
     public ControladorPeleadores() {
@@ -67,8 +67,7 @@ public class ControladorPeleadores {
            String[] token;
            while ((line = br.readLine()) != null) {
                token=line.split(",");
-               heroe = new SuperHeroe(token[0],Double.valueOf(token[1]),Double.valueOf(token[2]),token[3]);
-               superHeroe.add(heroe);
+               superHeroe.add(new SuperHeroe(token[0],Double.valueOf(token[1]),Double.valueOf(token[2]),token[3]));
                System.out.println(superHeroe.get(superHeroe.size()-1).archivar());
            }
            System.err.println("IMPORTADOS: "+superHeroe.size()+" SUPERHEROES");
@@ -111,7 +110,9 @@ public class ControladorPeleadores {
    }
    
    public void eliminarPeleadores(){
-      this.superHeroe.clear();
+       for (int i = 0; i < superHeroe.size(); i++) {
+           superHeroe.remove(i);
+       }
    }
    
 }
