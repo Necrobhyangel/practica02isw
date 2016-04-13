@@ -129,7 +129,7 @@ public class ControladorVista {
                     String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
      try{
        
-                    if (!id.isEmpty() && id.matches("[0-9]+")&& getCtrlPelea().getJugador()==null) {
+                    if (!id.isEmpty() && id.matches("[0-9]+")) {
                         getCtrlPelea().setJugador(getCtrlPelea().getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
                       if (getCtrlPelea().getJugador()==null) {
                         JOptionPane.showMessageDialog(frame, "No se encontro al jugador");
