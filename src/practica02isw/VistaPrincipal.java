@@ -17,6 +17,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     ControladorVista ctrlVista;
     /**
      * Creates new form VistaPrincipal
+     * @throws java.io.IOException
      */
     public VistaPrincipal() throws IOException {
         ctrlVista = new ControladorVista(this);
@@ -350,14 +351,11 @@ limpiarPantalla();
            
            imgJ1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroePlayer().getRutaImg())));
            imgCPU.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroeCPU().getRutaImg())));
-                     
-          
+           lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
            lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
            lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
-           
            lbPlHeroe.setText(ctrlVista.getCtrlPelea().getNombreHeroePlayer());
            lbCPUHeroe.setText(ctrlVista.getCtrlPelea().getNombreHeroeCPU());
-           
            
            barraHPPlayer.setMinimum(0);
            barraHPPlayer.setMaximum((int) ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());

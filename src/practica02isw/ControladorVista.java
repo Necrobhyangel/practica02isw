@@ -7,7 +7,6 @@ package practica02isw;
 
 import java.awt.Component;
 import java.io.IOException;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -129,8 +128,14 @@ public class ControladorVista {
 
                     String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
      try{
-                    if (!id.isEmpty() && id.matches("[0-9]+")) {
-                        ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
+       
+                    if (!id.isEmpty() && id.matches("[0-9]+")&& getCtrlPelea().getJugador()==null) {
+                        getCtrlPelea().setJugador(getCtrlPelea().getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
+                      if (getCtrlPelea().getJugador()==null) {
+                        JOptionPane.showMessageDialog(frame, "No se encontro al jugador");
+                        select = true;
+                        break;
+                    }
                         select = false;
                         break;
                     } else if (id.isEmpty()) {
@@ -138,10 +143,6 @@ public class ControladorVista {
                         break;
                     } else if (!id.matches("[0-9]+")) {
                         JOptionPane.showMessageDialog(frame, "Solo se pueden ingresar números");
-                        break;
-                    } else if (ctrlPelea.getJugador() == null) {
-                        JOptionPane.showMessageDialog(frame, "No se encontro al jugador");
-                        System.out.println(ctrlPelea.getJugador().getNombre());
                         break;
                     }
      }catch(NullPointerException | NumberFormatException e ){
