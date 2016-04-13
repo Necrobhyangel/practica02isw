@@ -111,6 +111,7 @@ public class ControladorVista {
             switch (n) {
                 case 0:
                     String nombre = JOptionPane.showInputDialog(null, "Ingresa el Nombre del jugador");
+             try{
                     if (!nombre.isEmpty()) {
                         ctrlPelea.getCtrlJugadores().crearJugador(nombre);
                         ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().getJugadores().get(ctrlPelea.getCtrlJugadores().getJugadores().size() - 1));
@@ -120,11 +121,14 @@ public class ControladorVista {
                         JOptionPane.showMessageDialog(null, "Necesita ingresar un nombre, no se aceptan campos vacios");
                         break;
                     }
-
+             }catch(NullPointerException e){
+             JOptionPane.showMessageDialog(null, "Necesita ingresar un nombre, no se aceptan campos vacios");
+             break;
+             }
                 case 1:
 
                     String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
-
+     try{
                     if (!id.isEmpty() && id.matches("[0-9]+")) {
                         ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
                         select = false;
@@ -140,7 +144,10 @@ public class ControladorVista {
                         System.out.println(ctrlPelea.getJugador().getNombre());
                         break;
                     }
-
+     }catch(NullPointerException | NumberFormatException e){
+     JOptionPane.showMessageDialog(frame, "No ha ingresado nada, o ha ingresado una ID fuera de los limites");
+                        break;
+     }
                 default:
                     break;
             }

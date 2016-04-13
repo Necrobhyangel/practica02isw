@@ -22,7 +22,7 @@ public class ControladorTiempo implements ActionListener {
 private ControladorPelea ctrlPelea;
 private int tiempo;
 private JLabel label;
-private Timer timer = new Timer(1000,this);
+private Timer timer = new Timer(100,this);
 private boolean end = false;
 
     public ControladorTiempo(ControladorPelea ctrlPelea, int tiempo) {

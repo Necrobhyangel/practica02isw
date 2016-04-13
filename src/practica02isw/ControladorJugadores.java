@@ -101,10 +101,12 @@ public class ControladorJugadores {
  }
  
  public Jugador buscarJugador(int j) throws IOException{
-     if (j >= 0 && j < jugadores.size() ) {
+    try{
      return jugadores.get(j);    
-     }
-     return null;
+    }catch(IndexOutOfBoundsException | NumberFormatException e){
+    return null;
+    }
+    
  }
  
 }
