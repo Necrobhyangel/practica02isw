@@ -16,11 +16,13 @@ import javax.swing.JOptionPane;
  * @author Erick
  */
 public class ControladorVista {
-  ControladorPelea ctrlPelea;
-  String nombreJugador,nombreHeroePlayer,nombreHeroeCPU,log;
-  int seleccion;
+  private VistaPrincipal vstPrincipal;  
+  private ControladorPelea ctrlPelea;
+  private String nombreJugador,nombreHeroePlayer,nombreHeroeCPU,log;
+  private int seleccion;
 
-    public ControladorVista() throws IOException {
+    public ControladorVista(VistaPrincipal vstPrincipal) throws IOException {
+        this.vstPrincipal = vstPrincipal;
         this.ctrlPelea = new ControladorPelea(this);
         this.log = "";
     }
@@ -93,7 +95,7 @@ public class ControladorVista {
 
     public void obtenerJugador() throws IOException{
  boolean select = true;
-        while(select){
+  while(select){
         Object[] opciones = {"Crear jugador Nuevo","Ingresar ID de jugador existente"};
     Component frame = null;
     int n = JOptionPane.showOptionDialog(frame,
@@ -114,19 +116,27 @@ public class ControladorVista {
                 break; 
             
             case 1:
-             String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
+                        
+                String id = JOptionPane.showInputDialog(null,"Ingresa el ID del jugador");
              
-                if (!id.isEmpty()) {
+                if (!id.isEmpty()&&id.matches("[0-9]+")) {
                     ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)-1));
                     select = false;
                     break;
-                } else if(ctrlPelea.getJugador().equals(null)){
+                } else if(ctrlPelea.getJugador() == null){
                 JOptionPane.showMessageDialog(frame,"No se encontro al jugador");
+                break;
+                }else if(!id.matches("[0-9]+")){
+                JOptionPane.showMessageDialog(frame,"Solo se pueden ingresar números");
+                break;
+                }else if(id.isEmpty()){
+                JOptionPane.showMessageDialog(frame,"No ha ingresado nada");
+                break;
                 }
              
              
             default:
-               
+               break;
         }
   }
     }
@@ -148,6 +158,14 @@ public class ControladorVista {
              
     }
 
+    public VistaPrincipal getVstPrincipal() {
+        return vstPrincipal;
+    }
+
+    public void setVstPrincipal(VistaPrincipal vstPrincipal) {
+        this.vstPrincipal = vstPrincipal;
+    }   
+    
     public void iniciarConteo(JLabel label){
     getCtrlPelea().getCtrltiempo().setLabel(label);
     getCtrlPelea().getCtrltiempo().getTimer().start();

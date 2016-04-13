@@ -19,11 +19,11 @@ import javax.swing.Timer;
  * @author Erick
  */
 public class ControladorTiempo implements ActionListener {
-ControladorPelea ctrlPelea;
-int tiempo;
-JLabel label;
-Timer timer = new Timer(1000,this);
-boolean end = false;
+private ControladorPelea ctrlPelea;
+private int tiempo;
+private JLabel label;
+private Timer timer = new Timer(1000,this);
+private boolean end = false;
 
     public ControladorTiempo(ControladorPelea ctrlPelea, int tiempo) {
         this.ctrlPelea = ctrlPelea;

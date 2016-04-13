@@ -8,7 +8,6 @@ package practica02isw;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Timer;
 
 /**
  *
@@ -16,19 +15,12 @@ import javax.swing.Timer;
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     ControladorVista ctrlVista;
-//    VistaRankings vstRankings = new VistaRankings(ctrlVista.getCtrlPelea().getCtrlJugadores());
-
     /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() throws IOException {
-        ctrlVista = new ControladorVista();
+        ctrlVista = new ControladorVista(this);
         initComponents();
-        
-        
-        if (ctrlVista.getCtrlPelea().isPeleaEnCurso()==false) {
-            btnJuego.setEnabled(true);
-        }
     }
 
     public void actualizarLog(){
@@ -521,4 +513,15 @@ actualizarLog();
     private javax.swing.JLabel lbPlHeroe;
     private javax.swing.JLabel lbTiempo;
     // End of variables declaration//GEN-END:variables
+
+    void habilitarBotonInicio() {
+    btnJuego.setEnabled(true);
+    }
+
+    void desabilitarBtnGolpes() {
+    btnGolpe.setEnabled(false);
+    btnPatada.setEnabled(false);
+    btnAtaqueEsp.setEnabled(false);
+    
+    }
 }

@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
  * @author Erick
  */
 public class ControladorPelea {
-   ControladorPeleadores ctrlPeleadores;
+   private ControladorPeleadores ctrlPeleadores;
    private final ControladorVista ctrlVista;
    private ControladorJugadores ctrlJugadores;
    private final ControladorRankings ctrlRankings;
-   ControladorTiempo ctrltiempo;
+   private ControladorTiempo ctrltiempo;
    private int tiempo = 120;
    private Jugador jugador;
    private SuperHeroe superHeroePlayer,superHeroeCPU;
@@ -136,7 +136,15 @@ public class ControladorPelea {
     public void setSeleccionCompleta(boolean seleccionCompleta) {
         this.seleccionCompleta = seleccionCompleta;
     }
-        
+
+    public ControladorVista getCtrlVista() {
+        return ctrlVista;
+    }
+
+    public ControladorRankings getCtrlRankings() {
+        return ctrlRankings;
+    }
+    
     public void obtenerHeroes() throws IOException{
         
     superHeroePlayer = ctrlPeleadores.seleccionarSuperHeroeP1(ctrlVista.getSeleccion());
@@ -157,6 +165,7 @@ public void iniciarPelea(){
 }
 
 public void reiniciar() throws IOException{
+ctrlVista.getVstPrincipal().habilitarBotonInicio();
 ctrlPeleadores.eliminarPeleadores();
 setTiempo(120);
 }
@@ -182,14 +191,15 @@ public void registrarAtaque(int i) throws IOException{
     void declararGanador() throws IOException {
     if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
             getCtrltiempo().getTimer().stop();
+            getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
             JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
             getJugador().setGanadas(getJugador().getGanadas()+1);
             reiniciar();
         }else{
             getCtrltiempo().getTimer().stop();   
             JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
-           getJugador().setPerdidas(getJugador().getPerdidas()+1);
-           reiniciar();
+            getJugador().setPerdidas(getJugador().getPerdidas()+1);
+            reiniciar();
         }
     }
 
