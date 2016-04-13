@@ -8,6 +8,7 @@ package practica02isw;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Timer;
 
 /**
  *
@@ -35,17 +36,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     consolaJuego.setText(ctrlVista.getLog());
     }
     public void iniciarContador(){
-        Thread hilo = new Thread();
-    while(ctrlVista.getCtrlPelea().getTiempo() != 0){
-        try {
-           ctrlVista.getCtrlPelea().setTiempo(ctrlVista.getCtrlPelea().getTiempo()-1);
-            lbTiempo.setText(String.valueOf(this.ctrlVista.getCtrlPelea().getTiempo()));
-          //  System.out.println(tiempo);
-            hilo.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+ControladorTiempo contador = new ControladorTiempo(ctrlVista.getCtrlPelea().getTiempo(),lbTiempo);
+contador.getTimer().start();
     }
     
     public void verificarEstado(){
@@ -402,7 +394,7 @@ limpiarPantalla();
 
 ctrlVista.getCtrlPelea().iniciarPelea();
 lbTiempo.setText(String.valueOf(this.ctrlVista.getCtrlPelea().getTiempo()));
-//iniciarContador();
+iniciarContador();
 btnCambiarJugador.setEnabled(true);
 btnGolpe.setEnabled(true);
 btnPatada.setEnabled(true);
@@ -452,7 +444,11 @@ verificarEstado();
     }//GEN-LAST:event_btnAtaqueEspActionPerformed
 
     private void btnCambiarJugadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarJugadorActionPerformed
-ctrlVista.cambiarJugador();
+        try {
+            ctrlVista.cambiarJugador();
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
 lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
 lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
 ctrlVista.setLog("Jugador cambiado a "+ctrlVista.getCtrlPelea().getJugador().getNombre()+"\n");

@@ -142,7 +142,7 @@ public class ControladorVista {
              
                 if (!id.isEmpty()) {
                     ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)-1));
-                } else if(ctrlPelea.getJugador().equals(null)){
+                } else if(ctrlPelea.getJugador() == null){
                 JOptionPane.showMessageDialog(null,"No se encontro al jugador");
                 }
              
