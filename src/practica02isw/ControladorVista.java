@@ -27,6 +27,7 @@ public class ControladorVista {
         this.log = "";
     }
 
+ 
     public int getSeleccion() {
         return seleccion;
     }
@@ -81,8 +82,10 @@ public class ControladorVista {
 
     public void obtenerSeleccion() throws IOException {
         Object[] opciones = ctrlPelea.getCtrlPeleadores().mostrarNombres();
-        Component frame = null;
-        int n = JOptionPane.showOptionDialog(frame,
+       boolean seleccionado = true; 
+      
+        while(seleccionado){
+         int n = JOptionPane.showOptionDialog(null,
                 "Selecciona al personaje que peleara contra el CPU",
                 "Seleccion de Personaje",
                 JOptionPane.YES_NO_OPTION,
@@ -90,7 +93,16 @@ public class ControladorVista {
                 null,
                 opciones,
                 opciones[0]);
-        setSeleccion(n);
+            System.out.println("N: -> "+n);
+          
+            if (n!=-1 && n < opciones.length) {
+            setSeleccion(n);
+            seleccionado = false;
+            break;
+            }else if(n==-1 && n <opciones.length && n > opciones.length){
+                break;
+            }
+        }
     }
 
     public void obtenerJugador() throws IOException {
