@@ -19,6 +19,7 @@ public class ControladorPelea {
    private final ControladorVista ctrlVista;
    private ControladorJugadores ctrlJugadores;
    private final ControladorRankings ctrlRankings;
+   ControladorTiempo ctrltiempo;
    private int tiempo = 120;
    private Jugador jugador;
    private SuperHeroe superHeroePlayer,superHeroeCPU;
@@ -31,6 +32,7 @@ public class ControladorPelea {
         this.ctrlPeleadores = new ControladorPeleadores();
         this.ctrlJugadores = new ControladorJugadores();
         this.ctrlRankings = new ControladorRankings(ctrlJugadores);
+        this.ctrltiempo = new ControladorTiempo(this,tiempo);
         this.seleccionCompleta = false;
         this.ctrlVista = ctrlVista;
     }
@@ -39,6 +41,15 @@ public class ControladorPelea {
         return ctrlPeleadores;
     }
 
+    public ControladorTiempo getCtrltiempo() {
+        return ctrltiempo;
+    }
+
+    public void setCtrltiempo(ControladorTiempo ctrltiempo) {
+        this.ctrltiempo = ctrltiempo;
+    }
+
+   
     public void setCtrlPeleadores(ControladorPeleadores ctrlPeleadores) {
         this.ctrlPeleadores = ctrlPeleadores;
     }
@@ -141,8 +152,8 @@ public class ControladorPelea {
     }
     
 public void iniciarPelea(){
+ setTiempo(120);
  setPeleaEnCurso(true);
- //iniciarConteo();
 }
 
 public void reiniciar() throws IOException{
@@ -159,27 +170,27 @@ public void registrarAtaque(int i) throws IOException{
     }
     if (isTimeover()) {
         setPeleaEnCurso(false);
-        if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
-            JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
-            reiniciar();
-        }else{
-           JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
-           reiniciar();
-        }
+        declararGanador();
     } if (superHeroePlayer.getVida()<= 0) {
-        setPeleaEnCurso(false);
-        JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
-        getJugador().setPerdidas(getJugador().getPerdidas()+1);
-        superHeroePlayer.setVida(0);
-        reiniciar();
+        declararGanador();
     }  if (superHeroeCPU.getVida()<= 0) {
-        setPeleaEnCurso(false);
-        JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
-        getJugador().setGanadas(getJugador().getGanadas()+1);
-        superHeroeCPU.setVida(0);
-        reiniciar();
+        declararGanador();
     } 
     
+    }
+
+    void declararGanador() throws IOException {
+    if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
+            getCtrltiempo().getTimer().stop();
+            JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
+            getJugador().setGanadas(getJugador().getGanadas()+1);
+            reiniciar();
+        }else{
+            getCtrltiempo().getTimer().stop();   
+            JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
+           getJugador().setPerdidas(getJugador().getPerdidas()+1);
+           reiniciar();
+        }
     }
 
 

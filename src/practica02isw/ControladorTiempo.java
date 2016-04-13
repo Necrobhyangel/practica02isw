@@ -7,7 +7,11 @@ package practica02isw;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -15,15 +19,18 @@ import javax.swing.Timer;
  * @author Erick
  */
 public class ControladorTiempo implements ActionListener {
+ControladorPelea ctrlPelea;
 int tiempo;
 JLabel label;
 Timer timer = new Timer(1000,this);
 boolean end = false;
 
-    public ControladorTiempo(int tiempo, JLabel label) {
+    public ControladorTiempo(ControladorPelea ctrlPelea, int tiempo) {
+        this.ctrlPelea = ctrlPelea;
         this.tiempo = tiempo;
-        this.label = label;
     }
+    
+    
 
     public boolean isEnd() {
         return end;
@@ -66,6 +73,15 @@ boolean end = false;
         if(tiempo<=0)
         {
             timer.stop();
+            ctrlPelea.setPeleaEnCurso(false);
+            JOptionPane.showMessageDialog(null,"TIEMPO TERMINADO");
+            try {
+                ctrlPelea.declararGanador();
+            } catch (IOException ex) {
+                Logger.getLogger(ControladorTiempo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 }
+
+
 }

@@ -148,5 +148,9 @@ public class ControladorVista {
              
     }
 
+    public void iniciarConteo(JLabel label){
+    getCtrlPelea().getCtrltiempo().setLabel(label);
+    getCtrlPelea().getCtrltiempo().getTimer().start();
+    }
    
 }

@@ -36,8 +36,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     consolaJuego.setText(ctrlVista.getLog());
     }
     public void iniciarContador(){
-ControladorTiempo contador = new ControladorTiempo(ctrlVista.getCtrlPelea().getTiempo(),lbTiempo);
-contador.getTimer().start();
+ctrlVista.iniciarConteo(lbTiempo);
     }
     
     public void verificarEstado(){
