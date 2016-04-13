@@ -60,7 +60,7 @@ public class ControladorJugadores {
            String[] token;
            while ((line = br.readLine()) != null) {
                token=line.split(",");
-               jugadores.add(new Jugador(Integer.parseInt(token[0]),token[1],Integer.parseInt(token[2]),Integer.parseInt(token[3])));
+               jugadores.add(Integer.parseInt(token[0]),new Jugador(Integer.parseInt(token[0]),token[1],Integer.parseInt(token[2]),Integer.parseInt(token[3])));
                System.out.println(jugadores.get(jugadores.size()-1).archivar());
            }
            System.err.println("IMPORTADOS: "+jugadores.size()+" JUGADORES");
@@ -94,14 +94,17 @@ public class ControladorJugadores {
    }
  
  public void crearJugador(String nombre) throws IOException{
-     Jugador jugadorNuevo;
-       jugadorNuevo = new Jugador(jugadores.size()+1,nombre,0,0);
+       Jugador jugadorNuevo;
+       jugadorNuevo = new Jugador(jugadores.size(),nombre,0,0);
        jugadores.add(jugadorNuevo);
        guardarArchivo();
  }
  
  public Jugador buscarJugador(int j) throws IOException{
-     return jugadores.get(j);
+     if (j >= 0 && j < jugadores.size() ) {
+     return jugadores.get(j);    
+     }
+     return null;
  }
  
 }

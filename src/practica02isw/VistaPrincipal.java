@@ -522,6 +522,6 @@ actualizarLog();
     btnGolpe.setEnabled(false);
     btnPatada.setEnabled(false);
     btnAtaqueEsp.setEnabled(false);
-    
+    btnCambiarJugador.setEnabled(false);
     }
 }

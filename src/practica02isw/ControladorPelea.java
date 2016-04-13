@@ -6,7 +6,6 @@
 package practica02isw;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
@@ -193,7 +192,8 @@ public void registrarAtaque(int i) throws IOException{
             getCtrltiempo().getTimer().stop();
             getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
             JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
-            getJugador().setGanadas(getJugador().getGanadas()+1);
+            ctrlJugadores.getJugadores().get(getJugador().getId()).setGanadas(getJugador().getGanadas()+1);
+            ctrlJugadores.guardarArchivo();
             reiniciar();
         }else{
             getCtrltiempo().getTimer().stop();   
