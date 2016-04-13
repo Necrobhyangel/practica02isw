@@ -350,8 +350,8 @@ limpiarPantalla();
            
            imgJ1.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroePlayer().getRutaImg())));
            imgCPU.setIcon(new javax.swing.ImageIcon(getClass().getResource(ctrlVista.getCtrlPelea().getSuperHeroeCPU().getRutaImg())));
+                     
           
-           
            lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
            lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
            

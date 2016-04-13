@@ -144,7 +144,7 @@ public class ControladorVista {
                         System.out.println(ctrlPelea.getJugador().getNombre());
                         break;
                     }
-     }catch(NullPointerException | NumberFormatException e){
+     }catch(NullPointerException | NumberFormatException e ){
      JOptionPane.showMessageDialog(frame, "No ha ingresado nada, o ha ingresado una ID fuera de los limites");
                         break;
      }

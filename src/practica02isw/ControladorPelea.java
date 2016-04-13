@@ -149,13 +149,10 @@ public class ControladorPelea {
         
     superHeroePlayer = ctrlPeleadores.seleccionarSuperHeroeP1(ctrlVista.getSeleccion());
     setNombreHeroePlayer(superHeroePlayer.getNombre());
-    
     superHeroeCPU = ctrlPeleadores.seleccionarSuperHeroeCPU();
     setNombreHeroeCPU(superHeroeCPU.getNombre());
-    
     ctrlVista.setNombreHeroePlayer(getNombreHeroePlayer());
     ctrlVista.setNombreHeroeCPU(getNombreHeroeCPU());
-    
     setSeleccionCompleta(true);
     }
     
@@ -165,13 +162,12 @@ public void iniciarPelea(){
 }
 
 public void reiniciar() throws IOException{
+setTiempo(120);
 ctrlVista.getVstPrincipal().habilitarBotonInicio();
 ctrlPeleadores.eliminarPeleadores();
-setTiempo(120);
 }
 
 public void registrarAtaque(int i) throws IOException{
-    
     if (isPeleaEnCurso()) {
     Random rnd = new Random();
     ctrlVista.setLog(superHeroePlayer.atacar(i, superHeroeCPU));
@@ -206,7 +202,4 @@ public void registrarAtaque(int i) throws IOException{
             reiniciar();
         }
     }
-
-
-
 }
