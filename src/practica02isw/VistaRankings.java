@@ -6,14 +6,31 @@
 package practica02isw;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JTable;
 
 /**
  *
  * @author Erick
  */
 public class VistaRankings extends javax.swing.JFrame {
+
+    private Object[][] datos;
+
+    public JTable getTablaRank() {
+        return tablaRank;
+    }
+
+    public void setTablaRank(JTable tablaRank) {
+        this.tablaRank = tablaRank;
+    }
+
+    public Object[][] getDatos() {
+        return datos;
+    }
+
+    public void setDatos(Object[][] datos) {
+        this.datos = datos;
+    }
     
 
     /**
@@ -21,21 +38,11 @@ public class VistaRankings extends javax.swing.JFrame {
      * @param j
      * @throws java.io.IOException
      */
-    public VistaRankings(ControladorJugadores j) throws IOException {
-     ControladorRankings ctrlRankings = new ControladorRankings(j);
-        
-        initComponents();
-        
-        tablaRank.setModel(
-        new javax.swing.table.DefaultTableModel(ctrlRankings.obtenerRankings(),new String [] {
-            "Nombre", "Victorias", "Derrotas"
-            }
-        ));
-    }
+    public VistaRankings() throws IOException {
+initComponents();
+}
 
-    private VistaRankings() {
-    }
-
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -133,7 +140,7 @@ public class VistaRankings extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VistaRankings().setVisible(true);
+               
             }
         });
     }

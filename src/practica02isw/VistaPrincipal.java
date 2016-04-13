@@ -359,7 +359,7 @@ limpiarPantalla();
            lbCPUHeroe.setText(ctrlVista.getCtrlPelea().getNombreHeroeCPU());
            
            
-            barraHPPlayer.setMinimum(0);
+           barraHPPlayer.setMinimum(0);
            barraHPPlayer.setMaximum((int) ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
            barraHPPlayer.setString(barraHPPlayer.getMaximum()+"/"+(int)ctrlVista.getCtrlPelea().getSuperHeroePlayer().getVida());
            barraHPPlayer.setStringPainted(true);
@@ -395,7 +395,11 @@ btnPelea.setEnabled(false);
     }//GEN-LAST:event_btnPeleaActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-//vstRankings.setVisible(true);
+        try {
+            ctrlVista.getCtrlPelea().getCtrlRankings().mostrarRankings();
+        } catch (IOException ex) {
+            Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void btnGolpeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGolpeActionPerformed

@@ -13,7 +13,15 @@ import java.util.ArrayList;
  * @author Erick
  */
 public class ControladorRankings {
-ControladorJugadores ctrlJugadores;
+private ControladorJugadores ctrlJugadores;
+private VistaRankings vstRankings;
+
+    public ControladorRankings(ControladorJugadores ctrlJugadores) throws IOException {
+        this.ctrlJugadores = ctrlJugadores;
+        this.vstRankings = new VistaRankings();
+        vstRankings.setDatos(this.obtenerRankings());
+    }
+
 
     public ControladorJugadores getCtrlJugadores() {
         return ctrlJugadores;
@@ -23,16 +31,16 @@ ControladorJugadores ctrlJugadores;
         this.ctrlJugadores = ctrlJugadores;
     }
 
+    public VistaRankings getVstRankings() {
+        return vstRankings;
+    }
 
-    public ControladorRankings(ControladorJugadores ctrlJugadores) throws IOException {
-        this.ctrlJugadores = ctrlJugadores;
-        ctrlJugadores.cargarArchivo();
+    public void setVstRankings(VistaRankings vstRankings) {
+        this.vstRankings = vstRankings;
     }
     
- public Object[][] obtenerRankings() throws IOException{
- 
- ArrayList<Jugador> ranks = ctrlJugadores.getJugadores();
-         
+ private Object[][] obtenerRankings() throws IOException{
+    final ArrayList<Jugador> ranks = getCtrlJugadores().getJugadores();
  Jugador temp;
     for (int i = 0; i < ranks.size(); i++) {
          for (int j = 0; j < ranks.size(); j++) {
@@ -52,4 +60,15 @@ ControladorJugadores ctrlJugadores;
 Object[][] tabla = r;
 return tabla;
  }
+ 
+   public void mostrarRankings() throws IOException{
+   Object[][] datos = this.obtenerRankings();
+   getVstRankings().setDatos(datos);
+   getVstRankings().getTablaRank().setModel(
+        new javax.swing.table.DefaultTableModel(datos,new String [] {
+            "Nombre", "Victorias", "Derrotas"
+            }
+        ));
+   getVstRankings().setVisible(true);
+   }
 }

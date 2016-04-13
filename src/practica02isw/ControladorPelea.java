@@ -32,6 +32,7 @@ public class ControladorPelea {
         this.ctrlJugadores = new ControladorJugadores();
         this.ctrlRankings = new ControladorRankings(ctrlJugadores);
         this.ctrltiempo = new ControladorTiempo(this,tiempo);
+        ctrlJugadores.cargarArchivo();
         this.seleccionCompleta = false;
         this.ctrlVista = ctrlVista;
     }
@@ -190,14 +191,17 @@ public void registrarAtaque(int i) throws IOException{
     void declararGanador() throws IOException {
     if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
             getCtrltiempo().getTimer().stop();
-            getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
             JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
+            getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
+            superHeroeCPU.setVida(0);
             ctrlJugadores.getJugadores().get(getJugador().getId()).setGanadas(getJugador().getGanadas()+1);
             ctrlJugadores.guardarArchivo();
             reiniciar();
         }else{
             getCtrltiempo().getTimer().stop();   
             JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
+            getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
+            superHeroePlayer.setVida(0);
             getJugador().setPerdidas(getJugador().getPerdidas()+1);
             reiniciar();
         }
