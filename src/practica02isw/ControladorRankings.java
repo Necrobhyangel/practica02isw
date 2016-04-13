@@ -40,22 +40,24 @@ private VistaRankings vstRankings;
     }
     
  private Object[][] obtenerRankings() throws IOException{
-    final ArrayList<Jugador> ranks = getCtrlJugadores().getJugadores();
+    Jugador[] ranks = new Jugador[getCtrlJugadores().getJugadores().size()];
+    ranks = getCtrlJugadores().getJugadores().toArray(ranks);
+    
  Jugador temp;
-    for (int i = 0; i < ranks.size(); i++) {
-         for (int j = 0; j < ranks.size(); j++) {
-             if (ranks.get(i).getGanadas() > ranks.get(j).getGanadas()) {
-                 temp = ranks.get(j);
-                 ranks.set(j,ranks.get(i));
-                 ranks.set(i, temp);
+    for (int i = 0; i < ranks.length; i++) {
+         for (int j = 0; j < ranks.length; j++) {
+             if (ranks[i].getGanadas() > ranks[j].getGanadas()) {
+                 temp = ranks[j];
+                 ranks[j]=ranks[i];
+                 ranks[i] = temp;
              }
          }
      }
- Object[][] r = new Object[ranks.size()][3];
-  for (int i = 0; i < ranks.size(); i++) {
-         r[i][0] = ranks.get(i).getNombre();
-         r[i][1] = ranks.get(i).getGanadas();
-         r[i][2] = ranks.get(i).getPerdidas();  
+ Object[][] r = new Object[ranks.length][3];
+  for (int i = 0; i < ranks.length; i++) {
+         r[i][0] = ranks[i].getNombre();
+         r[i][1] = ranks[i].getGanadas();
+         r[i][2] = ranks[i].getPerdidas();  
      }
 Object[][] tabla = r;
 return tabla;
