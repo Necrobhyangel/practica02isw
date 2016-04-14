@@ -19,7 +19,8 @@ public class ControladorPelea {
    private ControladorJugadores ctrlJugadores;
    private final ControladorRankings ctrlRankings;
    private ControladorTiempo ctrltiempo;
-   private int tiempo = 120;
+   private final int TIEMPO_DEFAULT = 120;
+   int tiempo;
    private Jugador jugador;
    private SuperHeroe superHeroePlayer,superHeroeCPU;
    private String nombreHeroePlayer,nombreHeroeCPU;
@@ -31,7 +32,7 @@ public class ControladorPelea {
         this.ctrlPeleadores = new ControladorPeleadores();
         this.ctrlJugadores = new ControladorJugadores();
         this.ctrlRankings = new ControladorRankings(ctrlJugadores);
-        this.ctrltiempo = new ControladorTiempo(this,tiempo);
+        this.ctrltiempo = new ControladorTiempo(this,TIEMPO_DEFAULT);
         ctrlJugadores.cargarArchivo();
         this.seleccionCompleta = false;
         this.ctrlVista = ctrlVista;
@@ -157,12 +158,12 @@ public class ControladorPelea {
     }
     
 public void iniciarPelea(){
- setTiempo(120);
+ setTiempo(TIEMPO_DEFAULT);
  setPeleaEnCurso(true);
 }
 
 public void reiniciar() throws IOException{
-setTiempo(120);
+setTiempo(TIEMPO_DEFAULT);
 ctrlVista.getVstPrincipal().habilitarBotonInicio();
 ctrlPeleadores.eliminarPeleadores();
 }
@@ -188,6 +189,7 @@ public void registrarAtaque(int i) throws IOException{
     if (superHeroePlayer.getVida() > superHeroeCPU.getVida()) {
             getCtrltiempo().getTimer().stop();
             JOptionPane.showMessageDialog(null,"El Jugador ha ganado");
+            getCtrltiempo().setTiempo(TIEMPO_DEFAULT);
             getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
             superHeroeCPU.setVida(0);
             ctrlJugadores.getJugadores().get(getJugador().getId()).setGanadas(getJugador().getGanadas()+1);
@@ -197,6 +199,7 @@ public void registrarAtaque(int i) throws IOException{
             getCtrltiempo().getTimer().stop();   
             JOptionPane.showMessageDialog(null,"El Jugador ha perdido");
             getCtrlVista().getVstPrincipal().desabilitarBtnGolpes();
+            getCtrltiempo().setTiempo(TIEMPO_DEFAULT);
             superHeroePlayer.setVida(0);
             getJugador().setPerdidas(getJugador().getPerdidas()+1);
             reiniciar();
