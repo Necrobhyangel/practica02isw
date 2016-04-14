@@ -19,7 +19,7 @@ import javax.swing.Timer;
  * @author Erick
  */
 public class ControladorTiempo implements ActionListener {
-private ControladorPelea ctrlPelea;
+private final ControladorPelea ctrlPelea;
 private int tiempo;
 private JLabel label;
 private Timer timer = new Timer(100,this);
@@ -67,14 +67,14 @@ private boolean end = false;
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
-        tiempo--;
+     tiempo--;
         label.setText(String.valueOf(tiempo));
         if(tiempo<=0)
         {
             timer.stop();
             ctrlPelea.setPeleaEnCurso(false);
             JOptionPane.showMessageDialog(null,"TIEMPO TERMINADO");
+            tiempo = ctrlPelea.getTiempo();
             try {
                 ctrlPelea.declararGanador();
             } catch (IOException ex) {

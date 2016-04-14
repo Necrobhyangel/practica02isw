@@ -93,7 +93,6 @@ public class ControladorVista {
                 null,
                 opciones,
                 opciones[0]);
-            System.out.println("N: -> "+n);
           
             if (n!=-1 && n < opciones.length) {
             setSeleccion(n);
@@ -173,10 +172,12 @@ public class ControladorVista {
     }
 
     void cambiarJugador() throws IOException {
+        ctrlPelea.getCtrltiempo().getTimer().stop();
         String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
 
         if (!id.isEmpty()) {
-            ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id) - 1));
+            ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
+        ctrlPelea.getCtrltiempo().getTimer().start();
         } else if (ctrlPelea.getJugador() == null) {
             JOptionPane.showMessageDialog(null, "No se encontro al jugador");
         }
