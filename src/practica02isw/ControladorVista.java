@@ -156,7 +156,11 @@ public class ControladorVista {
                         JOptionPane.showMessageDialog(frame, "Solo se pueden ingresar números");
                         break;
                     }
-     }catch(NullPointerException | NumberFormatException e ){
+                 
+     }catch(NullPointerException e ){
+     JOptionPane.showMessageDialog(frame, "No ha ingresado nada, o ha ingresado una ID fuera de los limites");
+                        break;
+     }catch(NumberFormatException e ){
      JOptionPane.showMessageDialog(frame, "No ha ingresado nada, o ha ingresado una ID fuera de los limites");
                         break;
      }
@@ -174,10 +178,17 @@ public class ControladorVista {
     void cambiarJugador() throws IOException {
         ctrlPelea.getCtrltiempo().getTimer().stop();
         String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
+        int idNum = Integer.valueOf(id);
+        System.out.println(ctrlPelea.getJugador().getId());
+        
 
-        if (!id.isEmpty()) {
+        if (!id.isEmpty() && ctrlPelea.getJugador().getId()!=idNum) {
             ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
-        ctrlPelea.getCtrltiempo().getTimer().start();
+            this.setLog("Jugador cambiado a "+this.getCtrlPelea().getJugador().getNombre()+"\n");
+            ctrlPelea.getCtrltiempo().getTimer().start();
+            
+        }else if (ctrlPelea.getJugador().getId()==idNum) {
+            JOptionPane.showMessageDialog(null, "El ID el usuario es el mismo que esta en uso");
         } else if (ctrlPelea.getJugador() == null) {
             JOptionPane.showMessageDialog(null, "No se encontro al jugador");
         }

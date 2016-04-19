@@ -103,10 +103,13 @@ public class ControladorJugadores {
  public Jugador buscarJugador(int j) throws IOException{
     try{
      return jugadores.get(j);    
-    }catch(IndexOutOfBoundsException | NumberFormatException | NullPointerException e ){
+    }catch(IndexOutOfBoundsException e){
+    return null;
+    }catch(NumberFormatException e){
+    return null;
+    }catch(NullPointerException e){
     return null;
     }
-    
  }
  
 }
