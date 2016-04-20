@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorPelea {
    private ControladorPeleadores ctrlPeleadores;

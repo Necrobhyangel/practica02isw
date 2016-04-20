@@ -20,6 +20,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorPeleadores {
     private ArrayList<SuperHeroe> superHeroe = new ArrayList<>();
