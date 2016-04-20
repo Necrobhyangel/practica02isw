@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorJugadores {
     private ArrayList<Jugador> jugadores = new ArrayList<>();

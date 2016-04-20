@@ -11,6 +11,7 @@ import java.util.ArrayList;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorRankings {
 private ControladorJugadores ctrlJugadores;

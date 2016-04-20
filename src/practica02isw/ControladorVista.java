@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorVista {
 

@@ -8,6 +8,7 @@ package practica02isw;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class Jugador {
     private int id;

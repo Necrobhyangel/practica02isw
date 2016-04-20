@@ -17,6 +17,7 @@ import javax.swing.Timer;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class ControladorTiempo implements ActionListener {
 private final ControladorPelea ctrlPelea;

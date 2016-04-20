@@ -11,6 +11,7 @@ import javax.swing.JTable;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class VistaRankings extends javax.swing.JFrame {
 

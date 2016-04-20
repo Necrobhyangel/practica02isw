@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class VistaPrincipal extends javax.swing.JFrame {
     ControladorVista ctrlVista;
