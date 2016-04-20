@@ -436,9 +436,16 @@ verificarEstado();
         } catch (IOException ex) {
             Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
+try{
+        lbNombreJugador.setText(ctrlVista.getCtrlPelea().getJugador().getNombre());
 lbID.setText(String.valueOf(ctrlVista.getCtrlPelea().getJugador().getId()));
 actualizarLog();
+}catch(NullPointerException e){
+ctrlVista.setLog("No se realizo ningun cambio");
+ctrlVista.getCtrlPelea().getCtrltiempo().getTimer().start();
+actualizarLog();
+
+}
 // TODO add your handling code here:
     }//GEN-LAST:event_btnCambiarJugadorActionPerformed
 

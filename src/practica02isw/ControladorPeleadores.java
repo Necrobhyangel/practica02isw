@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import practica02isw.heroes.CaptainAmerica;
+import practica02isw.heroes.Hulk;
+import practica02isw.heroes.IronMan;
+import practica02isw.heroes.Spiderman;
+import practica02isw.heroes.Wolverine;
 
 /**
  *
@@ -24,6 +29,11 @@ import java.util.logging.Logger;
  */
 public class ControladorPeleadores {
     private ArrayList<SuperHeroe> superHeroe = new ArrayList<>();
+    Spiderman spiderman;
+    IronMan ironman;
+    CaptainAmerica capAme;
+    Wolverine wolverine;
+    Hulk hulk;
     // SuperHeroe heroe;
     private File file = new File("src\\peleadores.csv");
 
@@ -71,6 +81,22 @@ public class ControladorPeleadores {
                superHeroe.add(new SuperHeroe(token[0],Double.valueOf(token[1]),Double.valueOf(token[2]),token[3]));
                System.out.println(superHeroe.get(superHeroe.size()-1).archivar());
            }
+           
+           SuperHeroe[] array = new SuperHeroe[superHeroe.size()];
+           array =superHeroe.toArray(array);
+           
+          spiderman = new Spiderman(array[0].getNombre(),array[0].getVida(),array[0].getAtaque(),array[0].getRutaImg());
+          ironman = new IronMan(array[1].getNombre(),array[1].getVida(),array[1].getAtaque(),array[1].getRutaImg());
+          capAme = new CaptainAmerica(array[2].getNombre(),array[2].getVida(),array[2].getAtaque(),array[2].getRutaImg());
+          wolverine = new Wolverine(array[3].getNombre(),array[3].getVida(),array[3].getAtaque(),array[3].getRutaImg());
+          hulk = new Hulk(array[4].getNombre(),array[4].getVida(),array[4].getAtaque(),array[4].getRutaImg());
+          
+          superHeroe.set(0, spiderman);
+          superHeroe.set(1, ironman);
+          superHeroe.set(2, capAme);
+          superHeroe.set(3, wolverine);
+          superHeroe.set(4, hulk);
+           
            System.err.println("IMPORTADOS: "+superHeroe.size()+" SUPERHEROES");
        }
    }

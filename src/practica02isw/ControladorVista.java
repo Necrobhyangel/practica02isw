@@ -181,19 +181,26 @@ public class ControladorVista {
         String id = JOptionPane.showInputDialog(null, "Ingresa el ID del jugador");
         int idNum = Integer.valueOf(id);
         System.out.println(ctrlPelea.getJugador().getId());
+         Jugador temp = ctrlPelea.getJugador();
         
-
-        if (!id.isEmpty() && ctrlPelea.getJugador().getId()!=idNum) {
+try{
+        
+            if (!id.isEmpty() && ctrlPelea.getJugador().getId()!=idNum) {
+          
             ctrlPelea.setJugador(ctrlPelea.getCtrlJugadores().buscarJugador(Integer.parseInt(id)));
             this.setLog("Jugador cambiado a "+this.getCtrlPelea().getJugador().getNombre()+"\n");
             ctrlPelea.getCtrltiempo().getTimer().start();
-            
+           
         }else if (ctrlPelea.getJugador().getId()==idNum) {
             JOptionPane.showMessageDialog(null, "El ID el usuario es el mismo que esta en uso");
         } else if (ctrlPelea.getJugador() == null) {
             JOptionPane.showMessageDialog(null, "No se encontro al jugador");
         }
-
+}catch(NullPointerException e){
+ JOptionPane.showMessageDialog(null, "No se encontro al jugador");
+ ctrlPelea.setJugador(temp);
+ 
+           }
     }
 
     public VistaPrincipal getVstPrincipal() {
