@@ -470,6 +470,7 @@ actualizarLog();
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 try {
                     new VistaPrincipal().setVisible(true);
