@@ -10,6 +10,7 @@ import practica02isw.SuperHeroe;
 /**
  *
  * @author Erick
+ * @author Borre
  */
 public class CaptainAmerica extends SuperHeroe {
 
@@ -24,69 +25,18 @@ public class CaptainAmerica extends SuperHeroe {
         super(nombre, vida, ataque);
     }
 
-    @Override
-    public String archivar() {
-        return super.archivar(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String atacar(int i, SuperHeroe enemigo) {
-        return super.atacar(i, enemigo); //To change body of generated methods, choose Tools | Templates.
-    }
-
+     public String shieldStrike(SuperHeroe enemigo)
+    {
+    String mensaje = this.getNombre()+" ha hecho su ataque SHIELD STRIKE contra "+enemigo.getNombre()+" quitandole "+ (int)super.getAtaque()+ " puntos de vida\n";
+    enemigo.setVida(enemigo.getVida()-super.getAtaque());
+    System.out.println(mensaje);
+    return mensaje;
+    }    
+    
     @Override
     public String tecnicaEsp(SuperHeroe enemigo) {
-        return super.tecnicaEsp(enemigo); //To change body of generated methods, choose Tools | Templates.
-    }
+    return this.shieldStrike(enemigo);
+    }  
 
-    @Override
-    public String patada(SuperHeroe enemigo) {
-        return super.patada(enemigo); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String golpe(SuperHeroe enemigo) {
-        return super.golpe(enemigo); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setRutaImg(String rutaImg) {
-        super.setRutaImg(rutaImg); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getRutaImg() {
-        return super.getRutaImg(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setAtaque(double ataque) {
-        super.setAtaque(ataque); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public double getAtaque() {
-        return super.getAtaque(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setVida(double vida) {
-        super.setVida(vida); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public double getVida() {
-        return super.getVida(); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void setNombre(String nombre) {
-        super.setNombre(nombre); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String getNombre() {
-        return super.getNombre(); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+      
 }

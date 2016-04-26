@@ -91,11 +91,11 @@ public class ControladorPeleadores {
           wolverine = new Wolverine(array[3].getNombre(),array[3].getVida(),array[3].getAtaque(),array[3].getRutaImg());
           hulk = new Hulk(array[4].getNombre(),array[4].getVida(),array[4].getAtaque(),array[4].getRutaImg());
           
-          superHeroe.set(0, spiderman);
-          superHeroe.set(1, ironman);
-          superHeroe.set(2, capAme);
-          superHeroe.set(3, wolverine);
-          superHeroe.set(4, hulk);
+          superHeroe.set(0, (SuperHeroe)spiderman);
+          superHeroe.set(1, (SuperHeroe)ironman);
+          superHeroe.set(2, (SuperHeroe)capAme);
+          superHeroe.set(3, (SuperHeroe)wolverine);
+          superHeroe.set(4, (SuperHeroe)hulk);
            
            System.err.println("IMPORTADOS: "+superHeroe.size()+" SUPERHEROES");
        }

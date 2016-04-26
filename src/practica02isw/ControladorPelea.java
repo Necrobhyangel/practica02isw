@@ -173,7 +173,7 @@ public void registrarAtaque(int i) throws IOException{
     if (isPeleaEnCurso()) {
     Random rnd = new Random();
     ctrlVista.setLog(superHeroePlayer.atacar(i, superHeroeCPU));
-    ctrlVista.setLog(superHeroeCPU.atacar(rnd.nextInt(2), superHeroePlayer));
+    ctrlVista.setLog(superHeroeCPU.atacar(rnd.nextInt(3), superHeroePlayer));
     }
     if (isTimeover()) {
         setPeleaEnCurso(false);
