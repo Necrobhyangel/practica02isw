@@ -83,9 +83,7 @@ public class SuperHeroe implements Heroe {
 
     @Override
     public String tecnicaEsp(SuperHeroe enemigo) {
-    String mensaje = this.getNombre()+" ha hecho su ataque especial a "+enemigo.getNombre()+" quitandole "+ (int)ataque+ " puntos de vida\n";
-    enemigo.setVida(enemigo.getVida()-ataque);
-        System.out.println(mensaje);
+    String mensaje = "";
     return mensaje;
     }
     
